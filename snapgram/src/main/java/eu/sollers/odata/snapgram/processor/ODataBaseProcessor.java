@@ -100,13 +100,18 @@ public abstract class ODataBaseProcessor implements Processor {
 
     void assertNotNull(Entity entity) throws ODataApplicationException {
         if (entity == null) {
-            throw new ODataApplicationException("Nothing found.", HttpStatusCode.NOT_FOUND.getStatusCode(),
+            throw new ODataApplicationException("Nothing found", HttpStatusCode.NOT_FOUND.getStatusCode(),
                     Locale.ROOT);
         }
     }
 
     void throwNotImplemented(String actionName) throws ODataApplicationException {
-        throw new ODataApplicationException(actionName + " is not supported.",
+        throw new ODataApplicationException(actionName + " is not supported",
+                HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
+    }
+
+    void throwTooManySegments() throws ODataApplicationException {
+        throw new ODataApplicationException("Too many navigation properties in URL (maximum 2 entities allowed)",
                 HttpStatusCode.NOT_IMPLEMENTED.getStatusCode(), Locale.ROOT);
     }
 

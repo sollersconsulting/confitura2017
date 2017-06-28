@@ -1,19 +1,24 @@
 package eu.sollers.odata.snapgram.domain.image;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 import org.apache.olingo.commons.api.data.Property;
 import org.apache.olingo.commons.api.data.ValueType;
 import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeKind;
 import org.apache.olingo.commons.api.format.ContentType;
 
+import eu.sollers.odata.snapgram.domain.user.User;
+
 import io.github.mat3e.odata.common.annotation.ODataEntity;
 import io.github.mat3e.odata.common.annotation.ODataKey;
+import io.github.mat3e.odata.common.annotation.ODataNavigationProperty;
 import io.github.mat3e.odata.common.annotation.ODataProperty;
 import io.github.mat3e.odata.common.entity.JpaOlingoMediaEntity;
 import lombok.Builder;
@@ -42,6 +47,12 @@ public class Image extends JpaOlingoMediaEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @ODataProperty(name = "Id", type = EdmPrimitiveTypeKind.Int64)
     private Long ID;
+
+    @Getter
+    @Setter
+    @ManyToOne(cascade = CascadeType.ALL)
+    @ODataNavigationProperty(name = "User")
+    private User user;
 
     @Getter
     @Setter
