@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.olingo.commons.api.data.Entity;
+import org.apache.olingo.commons.api.edm.EdmEntityType;
 import org.apache.olingo.commons.api.edm.FullQualifiedName;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
@@ -15,7 +16,9 @@ import org.apache.olingo.server.api.ODataApplicationException;
 import org.apache.olingo.server.api.ODataResponse;
 import org.apache.olingo.server.api.ServiceMetadata;
 import org.apache.olingo.server.api.processor.Processor;
+import org.apache.olingo.server.api.serializer.SerializerException;
 import org.apache.olingo.server.api.serializer.SerializerResult;
+import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriParameter;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
@@ -101,10 +104,13 @@ public abstract class ODataBaseProcessor implements Processor {
         return result;
     }
 
+    String getSelectList(UriInfo uri, EdmEntityType entity) throws SerializerException {
+        return odata.createUriHelper().buildContextURLSelectList(entity, null, uri.getSelectOption());
+    }
+
     void assertNotNull(Entity entity) throws ODataApplicationException {
         if (entity == null) {
-            throw new ODataApplicationException("Nothing found", HttpStatusCode.NOT_FOUND.getStatusCode(),
-                    Locale.ROOT);
+            throw new ODataApplicationException("Nothing found", HttpStatusCode.NOT_FOUND.getStatusCode(), Locale.ROOT);
         }
     }
 

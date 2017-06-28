@@ -75,8 +75,10 @@ public class ODataEntityProcessor extends ODataBaseProcessor implements EntityPr
 
         assertNotNull(responseEntity);
 
-        ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).suffix(ContextURL.Suffix.ENTITY).build();
-        EntitySerializerOptions options = EntitySerializerOptions.with().contextURL(contextUrl).build();
+        ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).suffix(ContextURL.Suffix.ENTITY)
+                                          .selectList(getSelectList(uriInfo, edmEntityType)).build();
+        EntitySerializerOptions options = EntitySerializerOptions.with().select(uriInfo.getSelectOption())
+                                                                 .contextURL(contextUrl).build();
 
         ODataSerializer serializer = odata.createSerializer(responseFormat);
         populateResponseForFormat(response, responseFormat,

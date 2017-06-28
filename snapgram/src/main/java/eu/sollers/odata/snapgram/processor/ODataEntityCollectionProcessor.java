@@ -19,6 +19,7 @@ import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.UriResourceNavigation;
+import org.apache.olingo.server.api.uri.queryoption.CountOption;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.mat3e.odata.core.spring.annotation.OlingoProcessor;
@@ -39,28 +40,39 @@ public class ODataEntityCollectionProcessor extends ODataBaseProcessor implement
         EdmEntityType edmEntityType = null;
 
         EntityCollection entityCollection = new EntityCollection();
+        List<Entity> entitiesGot = null;
 
         if (segmentCount == 1) {
             edmEntitySet = startEdmEntitySet;
             edmEntityType = edmEntitySet.getEntityType();
-            List<Entity> entries = getRepository(edmEntityType.getFullQualifiedName()).findAll();
-            entityCollection.getEntities().addAll(entries);
+
+            entitiesGot = getRepository(edmEntityType.getFullQualifiedName()).findAll();
+            entityCollection.getEntities().addAll(entitiesGot);
         } else if (segmentCount == 2) {
             UriResourceNavigation uriResourceNavigation = (UriResourceNavigation) parts.get(1);
             String propName = uriResourceNavigation.getProperty().getName();
 
             edmEntitySet = (EdmEntitySet) startEdmEntitySet.getRelatedBindingTarget(propName);
             edmEntityType = edmEntitySet.getEntityType();
+
             Entity startEntity = getEntityForKeys(uriResourceEntitySet);
-            entityCollection.getEntities()
-                            .addAll(startEntity.getNavigationLink(propName).getInlineEntitySet().getEntities());
+            entitiesGot = startEntity.getNavigationLink(propName).getInlineEntitySet().getEntities();
+            entityCollection.getEntities().addAll(entitiesGot);
         } else {
             throwTooManySegments();
         }
 
-        ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build();
+        // $count
+        CountOption countOption = uriInfo.getCountOption();
+        if (countOption != null && countOption.getValue()) {
+            entityCollection.setCount(entitiesGot.size());
+        }
+
+        ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet)
+                                          .selectList(getSelectList(uriInfo, edmEntityType)).build();
         final String id = request.getRawBaseUri() + "/" + edmEntitySet.getName();
-        EntityCollectionSerializerOptions options = EntityCollectionSerializerOptions.with().id(id)
+        EntityCollectionSerializerOptions options = EntityCollectionSerializerOptions.with().id(id).count(countOption)
+                                                                                     .select(uriInfo.getSelectOption())
                                                                                      .contextURL(contextUrl).build();
 
         ODataSerializer serializer = odata.createSerializer(responseFormat);

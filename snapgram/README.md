@@ -3,15 +3,26 @@
 # Snapgram
 Yet another images upload
 
-## Commit 8
+## Commit 9
+Long story short
+* $select - Olingo OoTB
+* $count for collections
+
+Example URLs
+* http://localhost:8080/OData.svc/Users?$count=true
+* http://localhost:8080/OData.svc/Images?$count=true&$format=json
+* http://localhost:8080/OData.svc/Images?$count=true&$format=json&$select=Width,Height
+* http://localhost:8080/OData.svc/Users('1')?$select=Username
+
+***
+
+### Commit 8
 Long story short
 * $value of media entities
 
 Example URLs
 * http://localhost:8080/OData.svc/Images(1)/$value
 * http://localhost:8080/OData.svc/Users('2')/Images(2)/$value
-
-***
 
 ### Commit 7
 Long story short
