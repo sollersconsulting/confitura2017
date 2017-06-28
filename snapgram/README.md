@@ -3,7 +3,21 @@
 # Snapgram
 Yet another images upload
 
-## Commit 4
+## Commit 5
+Long story short
+* PrimitiveProcessor
+* PrimitiveValueProcessor
+
+Example URLs
+* http://localhost:8080/OData.svc/Images(1)/Description
+* http://localhost:8080/OData.svc/Images(1)/IsPrivate
+* http://localhost:8080/OData.svc/Images(2)/IsPrivate
+* http://localhost:8080/OData.svc/Images(2)/IsPrivate/$value
+* http://localhost:8080/OData.svc/Images(1)/Height/$value
+
+***
+
+### Commit 4
 Long story short
 * EntityProcessor
 * Common part for processors
@@ -11,8 +25,6 @@ Long story short
 Example URLs
 * http://localhost:8080/OData.svc/Images(1)
 * http://localhost:8080/OData.svc/Images(2)?$format=json
-
-***
 
 ### Commit 3
 Long story short
