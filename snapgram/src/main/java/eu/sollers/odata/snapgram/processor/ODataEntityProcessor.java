@@ -25,9 +25,6 @@ import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.UriResourceNavigation;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.mat3e.odata.core.spring.annotation.OlingoProcessor;
-
-@OlingoProcessor
 public class ODataEntityProcessor extends ODataBaseProcessor implements EntityProcessor {
 
     @Override

@@ -75,10 +75,13 @@ public abstract class ODataBaseProcessor implements Processor {
 
     void populateResponseForFormat(ODataResponse response, ContentType responseFormat,
             SerializerResult serializerResult) {
-        InputStream inputStream = serializerResult.getContent();
-        response.setContent(inputStream);
+        populateResponseForFormat(response, responseFormat.toContentTypeString(), serializerResult.getContent());
+    }
+
+    void populateResponseForFormat(ODataResponse response, String format, InputStream result) {
+        response.setContent(result);
         response.setStatusCode(HttpStatusCode.OK.getStatusCode());
-        response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
+        response.setHeader(HttpHeader.CONTENT_TYPE, format);
     }
 
     /**

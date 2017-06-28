@@ -3,14 +3,22 @@
 # Snapgram
 Yet another images upload
 
-## Commit 7
+## Commit 8
+Long story short
+* $value of media entities
+
+Example URLs
+* http://localhost:8080/OData.svc/Images(1)/$value
+* http://localhost:8080/OData.svc/Users('2')/Images(2)/$value
+
+***
+
+### Commit 7
 Long story short
 * Navigation to the collection of entities
 
 Example URLs
 * http://localhost:8080/OData.svc/Users('2')/Images
-
-***
 
 ### Commit 6
 Long story short
