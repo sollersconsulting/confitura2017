@@ -73,6 +73,7 @@ public class ODataEntityCollectionProcessor extends ODataBaseProcessor implement
         final String id = request.getRawBaseUri() + "/" + edmEntitySet.getName();
         EntityCollectionSerializerOptions options = EntityCollectionSerializerOptions.with().id(id).count(countOption)
                                                                                      .select(uriInfo.getSelectOption())
+                                                                                     .expand(uriInfo.getExpandOption())
                                                                                      .contextURL(contextUrl).build();
 
         ODataSerializer serializer = odata.createSerializer(responseFormat);

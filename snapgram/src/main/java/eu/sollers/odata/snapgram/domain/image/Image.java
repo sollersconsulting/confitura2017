@@ -14,6 +14,7 @@ import org.apache.olingo.commons.api.data.ValueType;
 import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeKind;
 import org.apache.olingo.commons.api.format.ContentType;
 
+import eu.sollers.odata.snapgram.domain.category.Category;
 import eu.sollers.odata.snapgram.domain.user.User;
 
 import io.github.mat3e.odata.common.annotation.ODataEntity;
@@ -53,6 +54,12 @@ public class Image extends JpaOlingoMediaEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @ODataNavigationProperty(name = "User")
     private User user;
+
+    @Getter
+    @Setter
+    @ManyToOne(cascade = CascadeType.ALL)
+    @ODataNavigationProperty(name = "Category")
+    private Category category;
 
     @Getter
     @Setter

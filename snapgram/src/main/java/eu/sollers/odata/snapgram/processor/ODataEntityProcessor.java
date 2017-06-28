@@ -78,6 +78,7 @@ public class ODataEntityProcessor extends ODataBaseProcessor implements EntityPr
         ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).suffix(ContextURL.Suffix.ENTITY)
                                           .selectList(getSelectList(uriInfo, edmEntityType)).build();
         EntitySerializerOptions options = EntitySerializerOptions.with().select(uriInfo.getSelectOption())
+                                                                 .expand(uriInfo.getExpandOption())
                                                                  .contextURL(contextUrl).build();
 
         ODataSerializer serializer = odata.createSerializer(responseFormat);

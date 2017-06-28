@@ -3,7 +3,22 @@
 # Snapgram
 Yet another images upload
 
-## Commit 9
+## Commit 10
+Long story short
+* New entity
+* $expand - supported automatically thanks to https://github.com/mat3e/olingo-jpa (should be restricted, can be imrpoved)
+
+Example URLs
+* http://localhost:8080/OData.svc/Categories(1)/Images?$expand=User($select=Username)
+* http://localhost:8080/OData.svc/Categories(1)?$expand=Images($expand=User($select=Username);$count=true)&$format=json [count ignored]
+* http://localhost:8080/OData.svc/Images(2)?$expand=*
+* http://localhost:8080/OData.svc/Images?$expand=Category&$format=json
+* http://localhost:8080/OData.svc/Categories(1)?$expand=Images($levels=3)&$format=json
+* http://localhost:8080/OData.svc/Categories(1)?$expand=*($levels=3)&$format=json
+
+***
+
+### Commit 9
 Long story short
 * $select - Olingo OoTB
 * $count for collections
@@ -13,8 +28,6 @@ Example URLs
 * http://localhost:8080/OData.svc/Images?$count=true&$format=json
 * http://localhost:8080/OData.svc/Images?$count=true&$format=json&$select=Width,Height
 * http://localhost:8080/OData.svc/Users('1')?$select=Username
-
-***
 
 ### Commit 8
 Long story short
