@@ -3,7 +3,18 @@
 # Snapgram
 Yet another images upload
 
-## Commit 3
+## Commit 4
+Long story short
+* EntityProcessor
+* Common part for processors
+
+Example URLs
+* http://localhost:8080/OData.svc/Images(1)
+* http://localhost:8080/OData.svc/Images(2)?$format=json
+
+***
+
+### Commit 3
 Long story short
 * Repositories and the generic mechanism for repositories
 * Sample data
@@ -12,8 +23,6 @@ Long story short
 Example URLs
 * http://localhost:8080/OData.svc/Images
 * http://localhost:8080/OData.svc/Images?$format=json
-
-***
 
 ### Commit 2
 Long story short
