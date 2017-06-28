@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.apache.olingo.commons.api.data.Property;
 import org.apache.olingo.commons.api.data.ValueType;
@@ -31,7 +32,8 @@ import lombok.experimental.Tolerate;
  * Media entity for storing images.
  */
 @Builder
-@Entity(name = "images")
+@Entity
+@Table(name = "images")
 @ODataEntity(name = "Image", entitySetName = "Images")
 public class Image extends JpaOlingoMediaEntity {
     public static final ContentType PNG = ContentType.parse("image/png");

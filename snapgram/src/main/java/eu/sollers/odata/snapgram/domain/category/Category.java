@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.apache.olingo.commons.api.data.ValueType;
 import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeKind;
@@ -26,7 +27,8 @@ import lombok.Setter;
 import lombok.experimental.Tolerate;
 
 @Builder
-@Entity(name = "categories")
+@Entity
+@Table(name = "categories")
 @ODataEntity(name = "Category", entitySetName = "Categories")
 public class Category extends JpaOlingoEntity {
 

@@ -3,7 +3,22 @@
 # Snapgram
 Yet another images upload
 
-## Commit 10
+## Commit 11
+Long story short
+* $filter (most important operations and only for the first level)
+
+Example URLs
+* http://localhost:8080/OData.svc/Categories?$filter=startswith(Name,'A')
+* http://localhost:8080/OData.svc/Categories?$filter=contains(Name,'em')&$expand=Images
+* http://localhost:8080/OData.svc/Images?$filter=Width ge 700
+* http://localhost:8080/OData.svc/Images?$filter=Width sub Height eq 160
+* http://localhost:8080/OData.svc/Images?$filter=not contains(Description,'private')
+* http://localhost:8080/OData.svc/Categories?$count=true&$filter=Id lt day(now())
+* http://localhost:8080/OData.svc/Images?$filter=IsPrivate eq null or IsPrivate eq false
+
+***
+
+### Commit 10
 Long story short
 * New entity
 * $expand - supported automatically thanks to https://github.com/mat3e/olingo-jpa (should be restricted, can be imrpoved)
@@ -15,8 +30,6 @@ Example URLs
 * http://localhost:8080/OData.svc/Images?$expand=Category&$format=json
 * http://localhost:8080/OData.svc/Categories(1)?$expand=Images($levels=3)&$format=json
 * http://localhost:8080/OData.svc/Categories(1)?$expand=*($levels=3)&$format=json
-
-***
 
 ### Commit 9
 Long story short
