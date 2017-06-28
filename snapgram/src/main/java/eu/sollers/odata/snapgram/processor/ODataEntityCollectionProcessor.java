@@ -18,6 +18,7 @@ import org.apache.olingo.server.api.serializer.ODataSerializer;
 import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
+import org.apache.olingo.server.api.uri.UriResourceNavigation;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.mat3e.odata.core.spring.annotation.OlingoProcessor;
@@ -31,14 +32,31 @@ public class ODataEntityCollectionProcessor extends ODataBaseProcessor implement
             ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
 
         List<UriResource> parts = uriInfo.getUriResourceParts();
+        int segmentCount = parts.size();
         UriResourceEntitySet uriResourceEntitySet = getUriResourceEntitySetFromUriResources(0, parts);
-        EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
-        EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+        EdmEntitySet startEdmEntitySet = uriResourceEntitySet.getEntitySet();
+        EdmEntitySet edmEntitySet = null;
+        EdmEntityType edmEntityType = null;
 
-        // repo call
         EntityCollection entityCollection = new EntityCollection();
-        List<Entity> entries = getRepository(edmEntityType.getFullQualifiedName()).findAll();
-        entityCollection.getEntities().addAll(entries);
+
+        if (segmentCount == 1) {
+            edmEntitySet = startEdmEntitySet;
+            edmEntityType = edmEntitySet.getEntityType();
+            List<Entity> entries = getRepository(edmEntityType.getFullQualifiedName()).findAll();
+            entityCollection.getEntities().addAll(entries);
+        } else if (segmentCount == 2) {
+            UriResourceNavigation uriResourceNavigation = (UriResourceNavigation) parts.get(1);
+            String propName = uriResourceNavigation.getProperty().getName();
+
+            edmEntitySet = (EdmEntitySet) startEdmEntitySet.getRelatedBindingTarget(propName);
+            edmEntityType = edmEntitySet.getEntityType();
+            Entity startEntity = getEntityForKeys(uriResourceEntitySet);
+            entityCollection.getEntities()
+                            .addAll(startEntity.getNavigationLink(propName).getInlineEntitySet().getEntities());
+        } else {
+            throwTooManySegments();
+        }
 
         ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build();
         final String id = request.getRawBaseUri() + "/" + edmEntitySet.getName();

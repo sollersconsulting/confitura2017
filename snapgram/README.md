@@ -3,7 +3,16 @@
 # Snapgram
 Yet another images upload
 
-## Commit 6
+## Commit 7
+Long story short
+* Navigation to the collection of entities
+
+Example URLs
+* http://localhost:8080/OData.svc/Users('2')/Images
+
+***
+
+### Commit 6
 Long story short
 * New entity (User)
 * Navigation to single entity
@@ -15,8 +24,6 @@ Example URLs
 * http://localhost:8080/OData.svc/Images(1)/User
 * http://localhost:8080/OData.svc/Users('2')/Images(2)
 * http://localhost:8080/OData.svc/Images(1)/User/Images(2) [error]
-
-***
 
 ### Commit 5
 Long story short
