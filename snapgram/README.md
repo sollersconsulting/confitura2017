@@ -3,7 +3,19 @@
 # Snapgram
 Yet another images upload
 
-## Commit 2
+## Commit 3
+Long story short
+* Repositories and the generic mechanism for repositories
+* Sample data
+* CollectionProcessor
+
+Example URLs
+* http://localhost:8080/OData.svc/Images
+* http://localhost:8080/OData.svc/Images?$format=json
+
+***
+
+### Commit 2
 Long story short
 * First entity
 * OData Service Document
@@ -13,8 +25,6 @@ Example URLs
 * http://localhost:8080/OData.svc/
 * http://localhost:8080/OData.svc/?$format=json
 * http://localhost:8080/OData.svc/$metadata
-
-***
 
 ### Commit 1
 Long story short

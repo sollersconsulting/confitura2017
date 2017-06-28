@@ -2,6 +2,7 @@ package eu.sollers.odata.snapgram.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.olingo.server.api.OData;
 import org.apache.olingo.server.api.ODataHttpHandler;
 import org.apache.olingo.server.api.ServiceMetadata;
+import org.apache.olingo.server.api.processor.Processor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -28,6 +30,9 @@ public class ODataServlet extends HttpServlet {
     @Autowired
     private ODataEdmProvider provider;
 
+    @Autowired
+    private List<Processor> processors;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -41,6 +46,8 @@ public class ODataServlet extends HttpServlet {
             OData odata = OData.newInstance();
             ServiceMetadata edm = odata.createServiceMetadata(provider, new ArrayList<>());
             ODataHttpHandler handler = odata.createHandler(edm);
+
+            processors.forEach(handler::register);
 
             handler.process(req, resp);
         } catch (RuntimeException e) {
