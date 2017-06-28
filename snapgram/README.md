@@ -3,7 +3,20 @@
 # Snapgram
 Yet another images upload
 
-## Commit 1
+## Commit 2
+Long story short
+* First entity
+* OData Service Document
+* OData $metadata
+
+Example URLs
+* http://localhost:8080/OData.svc/
+* http://localhost:8080/OData.svc/?$format=json
+* http://localhost:8080/OData.svc/$metadata
+
+***
+
+### Commit 1
 Long story short
 * Spring Boot + `HttpServlet`
 * Minimum Viable Product :)

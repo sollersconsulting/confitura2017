@@ -19,19 +19,34 @@ public class SnapgramApplicationTests {
     private int port;
 
     @Test
-    public void test_pingUrl_returnsPong() {
+    public void test_readingService_returnsSth() {
         // GIVEN
         Api client = Feign.builder().target(Api.class, "http://localhost:" + port);
 
         // WHEN
-        String result = client.ping();
+        String result = client.readService();
 
         // THEN
-        assertThat(result).isEqualTo("PONG");
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    public void test_readingMetadata_returnsSth() {
+        // GIVEN
+        Api client = Feign.builder().target(Api.class, "http://localhost:" + port);
+
+        // WHEN
+        String result = client.readMetadata();
+
+        // THEN
+        assertThat(result).isNotNull();
     }
 
     private interface Api {
-        @RequestLine("GET /ping")
-        String ping();
+        @RequestLine("GET /OData.svc/")
+        String readService();
+
+        @RequestLine("GET /OData.svc/$metadata")
+        String readMetadata();
     }
 }

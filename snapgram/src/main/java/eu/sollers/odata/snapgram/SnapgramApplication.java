@@ -12,7 +12,7 @@ public class SnapgramApplication {
 
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
-        return new ServletRegistrationBean(new ODataServlet(), "/ping/*");
+        return new ServletRegistrationBean(new ODataServlet(), "/OData.svc/*");
     }
 
     public static void main(String[] args) {
